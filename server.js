@@ -8,6 +8,7 @@ const app = express();
 // Allow CROS-Origin
 app.use(cors());
 
+//
 // create the entry point for any client who want to interact with GraphQL on our server
 app.use(
   "/graphql",
