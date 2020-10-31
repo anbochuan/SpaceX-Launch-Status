@@ -39,6 +39,18 @@ const RocketType = new GraphQLObjectType({
   },
 });
 
+// Launch & Rocket Type
+const LaunchRocketType = new GraphQLObjectType({
+  // the name of this type
+  name: "LaunchRocket",
+  fields: () => {
+    return {
+      mission_name: { type: GraphQLString },
+      rocket_name: { type: GraphQLString },
+    };
+  },
+});
+
 // Customer Type
 const CustomerType = new GraphQLObjectType({
   // the name of this type
@@ -75,6 +87,34 @@ const RootQuery = new GraphQLObjectType({
         return axios
           .get("https://api.spacexdata.com/v3/launches/" + args.flight_number)
           .then((res) => res.data);
+      },
+    },
+    launchRocket: {
+      type: LaunchRocketType,
+      args: {
+        flight_number: { type: GraphQLInt },
+        rocket_id: { type: GraphQLString },
+      },
+
+      resolve(parent, args) {
+        return axios
+          .all([
+            axios.get(
+              "https://api.spacexdata.com/v3/launches/" + args.flight_number
+            ),
+            axios.get(
+              "https://api.spacexdata.com/v3/rockets/" + args.rocket_id
+            ),
+          ])
+          .then((responses) => {
+            // mission_name = responses[0].data["mission_name"];
+            // rocket_name = responses[1].data["rocket_name"];
+            console.log("1" + JSON.stringify(responses[0].data));
+            console.log("2" + JSON.stringify(responses[1].data));
+          })
+          .catch((errors) => {
+            console.log("error msg: " + errors.message);
+          });
       },
     },
     rockets: {
