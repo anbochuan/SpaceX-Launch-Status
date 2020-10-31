@@ -31,10 +31,10 @@
       "age": 222
     },
     {
-      "my branch": "A->B->C->D->E->CC->F"
+      "my branch": "A->B->C->D->E->F"
     },
     {
-      "yang branch": "AA->BB"
+      "yang branch": "AA->BB->CC"
     }
   ]
 }
