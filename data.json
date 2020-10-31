@@ -32,6 +32,9 @@
     },
     {
       "my branch": "A->B->C->D"
+    },
+    {
+      "yang branch": "AA"
     }
   ]
 }
